@@ -1,0 +1,30 @@
+{% extends 'base/default.html' %}
+{% load custom_filters %}
+
+{% block title %} DjangoDjenerics {% endblock title %}
+
+{% block content %}
+    <div class="container d-flex flex-md-column align-items-center">
+        <h2>Total number of posts {{ news|length }}</h2>
+        <br>
+        {% if news %}
+            <table class="table">
+                <tr>
+                    <td style="font-weight: bold">Title</td>
+                    <td style="font-weight: bold">Publish Date</td>
+                    <td style="font-weight: bold">Text</td>
+                </tr>
+                {% for post in news %}
+                    <tr>
+                        <td>{{ post.title|censor }}</td>
+                        <td>{{ post.postDate|date:'d.m.Y' }}</td>
+                        <td>{{ post.text|truncatewords:50|censor }}</td>
+                    </tr>
+                {% endfor %}
+
+        {% else %}
+            <h2>Sorry, the posts are missing</h2>
+        {% endif %}
+        </table>
+    </div>
+{% endblock %}
